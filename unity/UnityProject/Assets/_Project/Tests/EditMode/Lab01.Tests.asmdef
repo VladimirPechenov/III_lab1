@@ -1,0 +1,7 @@
+{
+  "name": "Lab01.Tests",
+  "rootNamespace": "Lab01.Tests",
+  "references": ["Lab01.Runtime"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "includePlatforms": ["Editor"]
+}
