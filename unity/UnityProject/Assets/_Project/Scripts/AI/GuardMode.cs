@@ -13,6 +13,7 @@ namespace Lab01.AI
 
         private void OnValidate()
         {
+            // Inspector вызывает OnValidate при смене режима. Awake повторяет выбор при запуске сцены.
             if (fsm == null) fsm = GetComponent<GuardFSM>();
             if (behaviorTree == null) behaviorTree = GetComponent<GuardBT>();
             if (fsm != null) fsm.enabled = algorithm == Algorithm.FSM;

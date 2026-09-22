@@ -15,12 +15,14 @@ namespace Lab01.AI
 
         private void Update()
         {
+            // Видимость пересчитываем каждый кадр: старое значение нельзя сохранять после ухода цели.
             CanSeePlayer = false;
             if (player == null) return;
 
             Vector3 eye = transform.position + Vector3.up * 1.5f;
             Vector3 target = player.position + Vector3.up;
             Vector3 direction = target - eye;
+            // Дешёвые проверки выполняем до физического луча.
             if (direction.magnitude > viewDistance) return;
             if (Vector3.Angle(transform.forward, direction) > fieldOfView * 0.5f) return;
 
@@ -30,6 +32,7 @@ namespace Lab01.AI
 
         private void OnDrawGizmosSelected()
         {
+            // Лучи в Scene View помогают настроить сектор обзора при выборе стражника.
             Gizmos.color = CanSeePlayer ? Color.red : Color.yellow;
             Vector3 eye = transform.position + Vector3.up * 1.5f;
             Gizmos.DrawRay(eye, Quaternion.Euler(0, -fieldOfView / 2f, 0) * transform.forward * viewDistance);

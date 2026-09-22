@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Lab01.BT
 {
+    // То же поведение стражника, но выбор действия делает дерево приоритетов.
     [RequireComponent(typeof(GuardMotor))]
     public class GuardBT : MonoBehaviour
     {
@@ -21,7 +22,8 @@ namespace Lab01.BT
         private void Awake()
         {
             motor = GetComponent<GuardMotor>();
-            // Приоритет: атака, тревога, преследование, поиск, патруль.
+            // Selector берёт первую ветку, которая не вернула Failure.
+            // Поэтому порядок здесь задаёт приоритет: атака, тревога, погоня, поиск, патруль.
             root = new Selector(
                 new Sequence(new Condition(() => motor.CanAttack && (state == GuardState.Chase || state == GuardState.Attack)), new Action(Attack)),
                 new Sequence(new Condition(() => motor.Senses.CanSeePlayer && state == GuardState.Alert), new Action(Alert)),
@@ -39,6 +41,7 @@ namespace Lab01.BT
 
         private void Update()
         {
+            // Запоминаем цель до обхода дерева, чтобы поиск знал, куда идти.
             if (motor.Senses.CanSeePlayer)
             {
                 lastSeenTime = Time.time;
@@ -49,6 +52,7 @@ namespace Lab01.BT
 
         private Status SeePlayer()
         {
+            // При первом обнаружении ждём секунду; во время погони задержка не нужна.
             if (state != GuardState.Chase && state != GuardState.Attack)
             {
                 SetState(GuardState.Alert);
@@ -83,12 +87,14 @@ namespace Lab01.BT
 
         private Status GoToLastPosition()
         {
+            // Двухсекундный таймер проверяется условием ветви в Awake().
             motor.Search();
             return Status.Running;
         }
 
         private Status Search()
         {
+            // Время поиска отсчитывается только после перехода в Search.
             if (state != GuardState.Search)
             {
                 SetState(GuardState.Search);

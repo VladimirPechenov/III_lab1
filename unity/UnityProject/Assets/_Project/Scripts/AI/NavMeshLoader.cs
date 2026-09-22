@@ -11,11 +11,13 @@ namespace Lab01.AI
 
         private void OnEnable()
         {
+            // Данные навигации лежат в отдельном asset и должны быть добавлены в мир при запуске.
             if (data != null) instance = NavMesh.AddNavMeshData(data);
         }
 
         private void OnDisable()
         {
+            // Убираем только экземпляр, который добавил этот компонент.
             if (instance.valid) instance.Remove();
         }
     }

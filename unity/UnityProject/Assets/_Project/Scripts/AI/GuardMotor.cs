@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 namespace Lab01.AI
 {
+    // Общее движение для FSM и BT: алгоритмы решают, что делать, а этот компонент как.
     [RequireComponent(typeof(NavMeshAgent), typeof(Perception))]
     public class GuardMotor : MonoBehaviour
     {
@@ -18,6 +19,7 @@ namespace Lab01.AI
         private Vector3 lastKnownPosition;
 
         public Perception Senses { get; private set; }
+        // Для атаки важна дистанция по полу, а не разница высот моделей.
         public bool CanAttack => Senses.Player != null && Senses.CanSeePlayer &&
             Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z),
                 new Vector3(Senses.Player.position.x, 0, Senses.Player.position.z)) <= attackRange;
@@ -55,6 +57,7 @@ namespace Lab01.AI
         {
             if (!agent.isOnNavMesh || waypoints.Length == 0) return;
             agent.isStopped = false;
+            // Новый маршрут задаём лишь после завершения предыдущего, иначе агент дёргается.
             if (agent.pathPending || (agent.hasPath && agent.remainingDistance > 0.5f)) return;
             agent.SetDestination(waypoints[waypointIndex].position);
             waypointIndex = (waypointIndex + 1) % waypoints.Length;
@@ -69,6 +72,7 @@ namespace Lab01.AI
 
         public void BeginSearch()
         {
+            // Отменяем погоню и начинаем с последней известной позиции игрока.
             searchIndex = 0;
             if (agent.isOnNavMesh) agent.ResetPath();
         }
@@ -91,6 +95,7 @@ namespace Lab01.AI
         public void Attack()
         {
             Stop();
+            // Демонстрационная атака ограничена частотой сообщений в Console.
             if (Time.time < nextAttackTime) return;
             nextAttackTime = Time.time + attackCooldown;
             Debug.Log("Стражник атакует игрока (демонстрационная атака).", this);

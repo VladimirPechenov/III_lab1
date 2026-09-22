@@ -11,6 +11,7 @@ public static class CreateLabScene
     [MenuItem("Lab 01/Create demonstration scene")]
     public static void Create()
     {
+        // Сцену можно получить из одного пункта меню без ручной расстановки объектов.
         var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
         GameObject environment = new GameObject("Environment");
         Material floor = MakeMaterial("Floor", new Color(0.25f, 0.35f, 0.38f));
@@ -32,6 +33,7 @@ public static class CreateLabScene
         Vector3[] points = { new Vector3(-7, 0, -7), new Vector3(-7, 0, 7),
             new Vector3(7, 0, 7), new Vector3(7, 0, -7) };
         Transform[] waypoints = new Transform[points.Length];
+        // Порядок точек образует замкнутый маршрут вокруг центра комнаты.
         for (int i = 0; i < points.Length; i++)
         {
             GameObject point = new GameObject("Waypoint " + (i + 1));
@@ -51,6 +53,7 @@ public static class CreateLabScene
         GameObject guard = new GameObject();
         guard.name = "Guard (select FSM or BT here)";
         guard.layer = 2;
+        // У визуальной капсулы нет коллайдера: движение и обход выполняет NavMeshAgent.
         guard.transform.position = points[0];
         GameObject guardVisual = GameObject.CreatePrimitive(PrimitiveType.Capsule);
         guardVisual.name = "Guard visual";
@@ -70,6 +73,7 @@ public static class CreateLabScene
         var bt = guard.AddComponent<GuardBT>();
         var mode = guard.AddComponent<GuardMode>();
         SetObject(senses, "player", player.transform);
+        // Луч зрения должен сталкиваться с геометрией, но не с самим игроком и стражником.
         SetInt(senses, "obstacles", 1 << 0); // Default: комната и четыре препятствия.
         SetArray(motor, "waypoints", waypoints);
         SetObject(mode, "fsm", fsm);
@@ -86,6 +90,7 @@ public static class CreateLabScene
         System.IO.Directory.CreateDirectory("Assets/_Project/Navigation");
         AssetDatabase.CreateAsset(navData, "Assets/_Project/Navigation/GuardNavMesh.asset");
         var loader = environment.AddComponent<NavMeshLoader>();
+        // Loader возвращает запечённые данные в NavMesh при входе в Play Mode.
         SetObject(loader, "data", navData);
 
         GameObject cameraObject = new GameObject("Main Camera");
@@ -143,6 +148,7 @@ public static class CreateLabScene
 
     private static void SetArray(Object target, string field, Transform[] values)
     {
+        // SerializedObject сохраняет ссылки на объекты сцены так же, как назначение в Inspector.
         var serialized = new SerializedObject(target);
         var array = serialized.FindProperty(field);
         array.arraySize = values.Length;
