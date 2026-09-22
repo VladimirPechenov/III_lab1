@@ -63,6 +63,7 @@ public static class CreateLabScene
         agent.speed = 3.5f;
         agent.angularSpeed = 300f;
         agent.stoppingDistance = 0.3f;
+        agent.enabled = false; // GuardMotor включит агент после загрузки NavMesh.
         var senses = guard.AddComponent<Perception>();
         var motor = guard.AddComponent<GuardMotor>();
         var fsm = guard.AddComponent<GuardFSM>();

@@ -29,6 +29,18 @@ namespace Lab01.AI
             Senses = GetComponent<Perception>();
         }
 
+        private void Start()
+        {
+            // В сцене агент выключен до загрузки NavMesh. Включаем его после OnEnable у NavMeshLoader.
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(transform.position, out hit, 2f, NavMesh.AllAreas))
+            {
+                transform.position = hit.position;
+                agent.enabled = true;
+            }
+            else Debug.LogError("Не удалось найти NavMesh рядом со стражником.", this);
+        }
+
         public void RememberPlayer()
         {
             if (Senses.Player != null) lastKnownPosition = Senses.Player.position;
