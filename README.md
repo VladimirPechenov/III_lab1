@@ -2,7 +2,7 @@
 
 Проект для дисциплины «Игровой искусственный интеллект» на основе [шаблона преподавателя](https://github.com/kolesnikov-vstu-gameai/lab01-fsm-bt).
 
-**Студент:** [ФИО, группа] · **Стек:** Unity 6 (6000.3.9f1), C#, NavMesh · **Видео:** [добавить ссылку] · **Отчёт:** [docs/report.md](docs/report.md)
+**Студент:** Печенов В. В., ИВТ - 465 · **Стек:** Unity 6 (6000.3.9f1), C#, NavMesh · **Видео:** [[ссылка]](https://youtu.be/o8LhFsdvJ4c) · **Отчёт:** [docs/report.md](docs/report.md)
 
 ## Запуск
 
@@ -26,7 +26,3 @@
 - `unity/UnityProject/Assets/_Project/Scripts/BT` — узлы дерева и BT стражника.
 - `unity/UnityProject/Assets/_Project/Editor/CreateLabScene.cs` — генератор сцены.
 - `docs/report.md` и `docs/diagrams.md` — черновик отчёта и диаграммы.
-
-## Сдача
-
-Перед сдачей заполните личные данные, проведите полный показ игровых сценариев в Unity и добавьте ссылку на видео в README и отчёт. Скриншот сцены уже добавлен в [отчёт](docs/report.md). Перенесите отчёт в официальный шаблон кафедры, экспортируйте `docs/report.pdf`, создайте тег `v1.0` и GitHub Release в своём репозитории. Для GitHub Actions нужен секрет `UNITY_LICENSE`.
