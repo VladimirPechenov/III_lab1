@@ -15,10 +15,14 @@ build/
 data/raw/
 data/processed/
 *.db
+!/data/telemetry.db
 *.sqlite
 runs/
 logs/
 *.mp4
+/data/unity-events.jsonl
+/results/live/
+/unity/UnityProject/Captures/
 *.zip
 # IDE
 .idea/

@@ -7,13 +7,14 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
     steps:
       - uses: actions/checkout@v4
         with:
           lfs: true
       - uses: game-ci/unity-test-runner@v4
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        if: env.UNITY_LICENSE != ''
         with:
           projectPath: unity/UnityProject
           unityVersion: 6000.3.9f1

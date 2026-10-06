@@ -24,6 +24,8 @@ namespace Lab01.AI
             Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z),
                 new Vector3(Senses.Player.position.x, 0, Senses.Player.position.z)) <= attackRange;
         public Vector3 LastKnownPosition => lastKnownPosition;
+        // В сцене ЛР 2 на удар подписан счётчик здоровья; в ЛР 1 подписчиков нет.
+        public event System.Action Attacked;
 
         private void Awake()
         {
@@ -99,6 +101,7 @@ namespace Lab01.AI
             if (Time.time < nextAttackTime) return;
             nextAttackTime = Time.time + attackCooldown;
             Debug.Log("Стражник атакует игрока (демонстрационная атака).", this);
+            Attacked?.Invoke();
         }
     }
 }

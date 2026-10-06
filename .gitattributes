@@ -1,4 +1,5 @@
 # Git LFS для бинарных ассетов Unity
+*.pdf binary
 *.png filter=lfs diff=lfs merge=lfs -text
 *.jpg filter=lfs diff=lfs merge=lfs -text
 *.jpeg filter=lfs diff=lfs merge=lfs -text
@@ -23,3 +24,8 @@
 *.mat text eol=lf
 *.meta text eol=lf
 *.cs text eol=lf diff=csharp
+# Небольшие иллюстрации отчёта хранятся непосредственно в Git.
+/docs/img/lab02-*.png -filter -diff -merge -text
+/results/*.png -filter -diff -merge -text
+# Список сцен сборки — текстовый YAML, без LFS.
+/unity/UnityProject/ProjectSettings/EditorBuildSettings.asset -filter diff merge text eol=lf

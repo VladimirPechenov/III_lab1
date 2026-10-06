@@ -1,0 +1,4 @@
+stage,sessions,percent_of_start,percent_of_previous
+session_start,48,100.0,100.0
+checkpoint,38,79.16666666666667,79.16666666666667
+level_complete,26,54.166666666666664,68.42105263157895

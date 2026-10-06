@@ -1,0 +1,12 @@
+{
+  "events": 256,
+  "sessions": 48,
+  "players": 24,
+  "completed_sessions": 48,
+  "incomplete_sessions": 0,
+  "median_length_s": 208.0,
+  "retention_d1": 0.5,
+  "deaths": 96,
+  "checkpoint_percent": 79.16666666666667,
+  "completion_percent": 54.166666666666664
+}

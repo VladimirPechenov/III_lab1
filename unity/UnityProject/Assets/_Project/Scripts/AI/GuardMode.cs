@@ -21,5 +21,15 @@ namespace Lab01.AI
         }
 
         private void Awake() => OnValidate();
+
+        // Игровой сценарий ЛР 2 меняет алгоритм той же процедурой, что и Inspector.
+        public void SetAlgorithm(Algorithm selected)
+        {
+            // Повторный запуск уровня также сбрасывает состояние выбранного алгоритма.
+            if (fsm != null) fsm.enabled = false;
+            if (behaviorTree != null) behaviorTree.enabled = false;
+            algorithm = selected;
+            OnValidate();
+        }
     }
 }
